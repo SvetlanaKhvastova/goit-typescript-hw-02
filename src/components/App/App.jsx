@@ -7,10 +7,6 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
-import Modal from "react-modal";
-import style from "./App.module.css";
-
-Modal.setAppElement("#root");
 
 const App = () => {
   const [pictures, setPictures] = useState([]);
@@ -65,9 +61,7 @@ const App = () => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onRequestClose={close} className={style.Modal} overlayClassName={style.Overlay}>
-        <ImageModal src={selectedImage} />
-      </Modal>
+      <ImageModal src={selectedImage} isOpen={isOpen} close={close} />
       <SearchBar onSearch={handleSearch} />
       {error && <ErrorMessage txt={error} />}
       {pictures?.length > 0 && <ImageGallery gallery={pictures} openRegularImg={handleImageClick} />}
