@@ -1,7 +1,8 @@
+import { FC } from "react";
 import { Vortex } from "react-loader-spinner";
 import style from "./Loader.module.css";
 
-const Loader = () => {
+const Loader: FC = () => {
   return (
     <>
       <div className={style.loader}>

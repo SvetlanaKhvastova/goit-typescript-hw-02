@@ -1,4 +1,13 @@
-const ImageCard = ({ src, description, openRegularImg }) => {
+type Props = {
+  src: {
+    small: string;
+    regular: string;
+  };
+  description: string;
+  openRegularImg: (image: string) => void;
+};
+
+const ImageCard = ({ src, description, openRegularImg }: Props) => {
   const { small, regular } = src;
 
   return (

@@ -1,27 +1,29 @@
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import style from "./SearchBar.module.css";
 import { FcSearch } from "react-icons/fc";
 
-const SearchBar = ({ onSearch }) => {
-  const [topic, setTopic] = useState("");
-  const formRef = useRef();
+type Props = {
+  onSearch: (topic: string) => void;
+}
 
-  const handleSubmit = (evt) => {
+const SearchBar = ({ onSearch }: Props) => {
+  const [topic, setTopic] = useState<string>("");
+
+  const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
-    if (topic === "") {
+    if (topic.trim() === "") {
       toast.error("Please enter a topic to search for images.");
       return;
     }
-    onSearch(topic);
-    formRef.current.reset();
+    onSearch(topic.trim());
     setTopic("");
   };
 
   return (
     <>
       <header className={style.search_bar}>
-        <form className={style.search_form} ref={formRef} onSubmit={handleSubmit}>
+        <form className={style.search_form} onSubmit={handleSubmit}>
           <input type="text" autoComplete="off" name="topic" autoFocus placeholder="Search images and photos" value={topic} onChange={(e) => setTopic(e.target.value)} />
           <button type="submit">
             <FcSearch />

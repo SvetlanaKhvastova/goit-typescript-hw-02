@@ -1,4 +1,8 @@
-const ErrorMessage = ({ txt }) => {
+type Props = {
+  txt: string
+}
+
+const ErrorMessage = ({ txt }: Props) => {
   return (
     <>
       <h2>{txt}</h2>

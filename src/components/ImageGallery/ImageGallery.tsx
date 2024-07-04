@@ -1,7 +1,21 @@
 import ImageCard from "../ImageCard/ImageCard";
 import style from "./ImageGallery.module.css";
 
-const ImageGallery = ({ gallery, openRegularImg }) => {
+type ImageItem = {
+  id: string;
+  alt_description: string;
+  urls: {
+    small: string;
+    regular: string;
+  };
+};
+
+type Props = {
+  gallery: ImageItem[];
+  openRegularImg: (image: string) => void;
+};
+
+const ImageGallery = ({ gallery, openRegularImg }: Props) => {
   return (
     <>
       <ul className={style.image_gallery}>

@@ -8,14 +8,23 @@ import ImageGallery from "../ImageGallery/ImageGallery";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
 
+interface Picture {
+  id: string;
+  alt_description: string;
+  urls: {
+    small: string;
+    regular: string;
+  };
+};
+
 const App = () => {
-  const [pictures, setPictures] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [loader, setLoader] = useState(false);
-  const [error, setError] = useState(false);
+  const [pictures, setPictures] = useState<Picture[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>("");
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [loader, setLoader] = useState<boolean>(false);
+  const [error, setError] = useState<string | boolean>(false);
   const { isOpen, open, close } = useToggle();
 
   useEffect(() => {
@@ -45,13 +54,13 @@ const App = () => {
     }
   }, [pictures, page]);
 
-  const handleSearch = async (searchQuery) => {
+  const handleSearch = async (searchQuery: string) => {
     setQuery(searchQuery);
     setPictures([]);
     setPage(1);
   };
 
-  const handleImageClick = (image) => {
+  const handleImageClick = (image: string) => {
     setSelectedImage(image);
     open();
   };
@@ -63,7 +72,7 @@ const App = () => {
     <>
       <ImageModal src={selectedImage} isOpen={isOpen} close={close} />
       <SearchBar onSearch={handleSearch} />
-      {error && <ErrorMessage txt={error} />}
+      {error && <ErrorMessage txt={error as string} />}
       {pictures?.length > 0 && <ImageGallery gallery={pictures} openRegularImg={handleImageClick} />}
       {loader && <Loader />}
       {pictures?.length > 0 && page < totalPage && <LoadMoreBtn onLoadMore={handleLoadMore} />}
